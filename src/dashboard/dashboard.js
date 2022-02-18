@@ -6,7 +6,6 @@ import Card from 'react-bootstrap/Card'
 import 'font-awesome/css/font-awesome.min.css'; 
 import Button from "react-bootstrap/Button";
 import "../login/login.css";
-import { Form } from "formik";
 import axios from "axios";
 import Table from 'react-bootstrap/Table'
 
