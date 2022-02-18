@@ -28,7 +28,7 @@ export default function Login() {
     const [iconShow, iconClick] = useState(false);
     const togglePasswordVisiblity = () => {
     iconClick(iconShow ? false : true)
-    setPasswordShown(passwordShown ? false : true);
+        setPasswordShown(passwordShown ? false : true);
     };
   
   const onSubmit = async (data) => {
@@ -84,6 +84,7 @@ export default function Login() {
         <Form noValidate onSubmit={handleSubmit}>
             <Card>
                 <Card.Body style={{backgroundColor:"#e3e5e8"}}>
+                    <h4>Login</h4>
                     {error}
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label><i className="fa fa-solid fa-user"/> Username:</Form.Label>
@@ -141,7 +142,7 @@ export default function Login() {
                             className="btn btn-info" 
                             to="/register"
                         >Register Mahasiswa Baru</Link>
-                        <Link to="/forget"><i className="fa fa-solid fa-eye"/>Lupa Password?</Link>
+                        <Link to="/forget"> <i className="fa fa-solid fa-eye"/> Lupa Password?</Link>
                     </div>
                 </Card.Body>
             </Card>

@@ -80,7 +80,7 @@ const togglePasswordVisiblity = () => {
                 <Card.Body style={{backgroundColor:"#e3e5e8"}}>
                     <h4 style={{textAlign:"center"}}>Reset Password</h4>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label><i className="fa fa-solid fa-gear"/> Password:</Form.Label>
+                        <Form.Label><i className="fa fa-solid fa-gear"/> Password :</Form.Label>
                         <InputGroup className="mb-3">
                             <Form.Control 
                                 type={passwordShown ? "text" : "password"}
@@ -101,7 +101,7 @@ const togglePasswordVisiblity = () => {
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPasswordConfirm">
-                        <Form.Label><i className="fa fa-solid fa-gear"/> Confirm Password:</Form.Label>
+                        <Form.Label><i className="fa fa-solid fa-gear"/> Confirm Password :</Form.Label>
                         <InputGroup className="mb-3">
                             <Form.Control 
                                 type={passwordShown ? "text" : "password"}

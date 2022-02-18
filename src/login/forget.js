@@ -11,12 +11,15 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert'
+import { useHistory } from "react-router-dom";
+
 
 const schema = yup.object().shape({
   email: yup.string().email('invalid email').required(),
 });
 
 export default function Forget() {
+    const history = useHistory()
     const [showErr, setShowErr] = useState(false);
     const [showSuc, setShowSuc] = useState(false);
     const [isError, setError] = useState('');
@@ -36,6 +39,10 @@ export default function Forget() {
                 setError(err.response.data.message)
             }
         )
+    }
+
+    const back = () => {
+        history.push('/')
     }
 
     let error,sukses = '';
@@ -99,6 +106,7 @@ export default function Forget() {
                     </Form.Group>
                     <div className="d-grid gap-2">
                         <Button type="submit" className="">Submit</Button>
+                        <Button type="submit" variant="info" style={{color:"white"}} onClick={back}>Back to Login</Button>
                     </div>
                 </Card.Body>
             </Card>

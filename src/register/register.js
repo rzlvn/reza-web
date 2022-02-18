@@ -30,10 +30,17 @@ export default function Register() {
     const [show, setShow] = useState(false);
     const [isError, setError] = useState('');
     const [passwordShown, setPasswordShown] = useState(false);
+    const [passwordConfirmShown, setPasswordConfirmShown] = useState(false);
     const [iconShow, iconClick] = useState(false);
+    const [iconConfirmShow, iconConfirmClick] = useState(false);
     const togglePasswordVisiblity = () => {
         iconClick(iconShow ? false : true)
         setPasswordShown(passwordShown ? false : true);
+    };
+    
+    const togglePasswordConfirmVisiblity = () => {
+        iconConfirmClick(iconConfirmShow ? false : true)
+        setPasswordConfirmShown(passwordConfirmShown ? false : true);
     };
 
     const onSubmit = data => {
@@ -49,6 +56,10 @@ export default function Register() {
                 setError(err.response.data.errors['email'][0])
             }
         )
+    }
+
+    const back = () => {
+        history.push('/')
     }
 
   let error = '';
@@ -91,6 +102,7 @@ export default function Register() {
         <Form noValidate onSubmit={handleSubmit}>
             <Card>
                 <Card.Body style={{backgroundColor:"#e3e5e8"}}>
+                    <h4>Register</h4>
                     {error}
                     <Form.Group className="mb-3" controlId="formBasicUsernames">
                     <Form.Label><i className="fa fa-solid fa-user"/> Username:</Form.Label>
@@ -149,7 +161,7 @@ export default function Register() {
                         <Form.Label><i className="fa fa-solid fa-gear"/> Confirm Password:</Form.Label>
                         <InputGroup className="mb-3">
                             <Form.Control 
-                                type={passwordShown ? "text" : "password"}
+                                type={passwordConfirmShown ? "text" : "password"}
                                 placeholder="Confirm Password"
                                 aria-describedby="inputGroupPrepend"
                                 name="password_confirm"
@@ -158,7 +170,7 @@ export default function Register() {
                                 isInvalid={!!errors.password_confirm}
                             />
                             <InputGroup.Text>
-                            <i onClick={togglePasswordVisiblity} className={iconShow ? 'fa fa-solid fa-eye' : 'fa fa-solid fa-eye-slash'}></i>
+                            <i onClick={togglePasswordConfirmVisiblity} className={iconConfirmShow ? 'fa fa-solid fa-eye' : 'fa fa-solid fa-eye-slash'}></i>
                             </InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
                                 {errors.password_confirm}
@@ -168,6 +180,7 @@ export default function Register() {
 
                     <div className="d-grid gap-2">
                         <Button type="submit" className="">Register</Button>
+                        <Button type="submit" variant="info" style={{color:"white"}} onClick={back}>Back to Login</Button>
                     </div>
                 </Card.Body>
             </Card>
