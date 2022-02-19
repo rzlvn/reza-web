@@ -13,6 +13,8 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import { Link,  useHistory } from "react-router-dom";
 import axios from 'axios';
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Spinner from 'react-bootstrap/Spinner'
 
 const schema = yup.object().shape({
   email: yup.string().required(),
@@ -31,7 +33,7 @@ export default function Login() {
         setPasswordShown(passwordShown ? false : true);
     };
   
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     await axios.post(process.env.REACT_APP_API_LINK_CUSTOM + 'login',data).then(
         res => {
             localStorage.setItem('token', res.data.token)
@@ -69,6 +71,7 @@ export default function Login() {
         }}
     >
         {({
+        isSubmitting,
         handleSubmit,
         handleChange,
         handleBlur,
@@ -81,10 +84,10 @@ export default function Login() {
     <Container>
     <Row>
         <Col lg={12} xs={12}>
-        <Form noValidate onSubmit={handleSubmit}>
+            <Form noValidate onSubmit={handleSubmit}>
             <Card>
                 <Card.Body style={{backgroundColor:"#e3e5e8"}}>
-                    <h4>Login</h4>
+                    <h4 style={{textAlign:"center"}}>LOGIN</h4>
                     {error}
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label><i className="fa fa-solid fa-user"/> Username:</Form.Label>
@@ -136,7 +139,25 @@ export default function Login() {
                         />
                     </Form.Group>
                     <div className="d-grid gap-2">
-                        <Button type="submit" className="">LOGIN ADMIN</Button>
+                        <ButtonGroup aria-label="Basic example">
+                        {isSubmitting && (
+                        <Button variant="primary" disabled>
+                            <Spinner
+                              as="span"
+                              animation="border"
+                              size="sm"
+                              role="status"
+                              aria-hidden="true"
+                            />
+                            Submitting...
+                        </Button>
+                        )}
+                        {!isSubmitting && (
+                        <Button type="submit" className="">
+                            LOGIN ADMIN
+                        </Button>
+                        )}  
+                        </ButtonGroup>                                                  
                         <Link
                             style={{color:"white"}}
                             className="btn btn-info" 
@@ -146,7 +167,7 @@ export default function Login() {
                     </div>
                 </Card.Body>
             </Card>
-        </Form>
+            </Form>        
         </Col> 
     </Row>        
     </Container>    

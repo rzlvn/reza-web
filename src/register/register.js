@@ -13,6 +13,8 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
 const schema = yup.object().shape({
   username: yup.string().required(),
@@ -43,9 +45,9 @@ export default function Register() {
         setPasswordConfirmShown(passwordConfirmShown ? false : true);
     };
 
-    const onSubmit = data => {
+    const onSubmit = async data => {
         console.log(data)
-        axios.post(process.env.REACT_APP_API_LINK_CUSTOM + 'register',data).then(
+        await axios.post(process.env.REACT_APP_API_LINK_CUSTOM + 'register',data).then(
             res => {
                 console.log(res)
                 history.push('/')
@@ -74,7 +76,6 @@ export default function Register() {
       )
       console.log(setError)
   }
-
   return (
     <Formik
         validationSchema={schema}
@@ -87,6 +88,7 @@ export default function Register() {
         }}
     >
         {({
+        isSubmitting,
         handleSubmit,
         handleChange,
         handleBlur,
@@ -98,11 +100,12 @@ export default function Register() {
     <div className="Register">
     <Container>
     <Row>
+        {console.log(isSubmitting)}
         <Col lg={12} xs={12}>
         <Form noValidate onSubmit={handleSubmit}>
             <Card>
                 <Card.Body style={{backgroundColor:"#e3e5e8"}}>
-                    <h4>Register</h4>
+                    <h4 style={{textAlign:"center"}}>Register</h4>
                     {error}
                     <Form.Group className="mb-3" controlId="formBasicUsernames">
                     <Form.Label><i className="fa fa-solid fa-user"/> Username:</Form.Label>
@@ -179,8 +182,24 @@ export default function Register() {
                     </Form.Group>
 
                     <div className="d-grid gap-2">
+                        <ButtonGroup aria-label="Basic example">
+                        {isSubmitting && (
+                        <Button variant="primary" disabled>
+                            <Spinner
+                              as="span"
+                              animation="border"
+                              size="sm"
+                              role="status"
+                              aria-hidden="true"
+                            />
+                            Submitting...
+                        </Button>
+                        )}
+                        {!isSubmitting && (
                         <Button type="submit" className="">Register</Button>
+                        )} 
                         <Button type="submit" variant="info" style={{color:"white"}} onClick={back}>Back to Login</Button>
+                        </ButtonGroup>
                     </div>
                 </Card.Body>
             </Card>

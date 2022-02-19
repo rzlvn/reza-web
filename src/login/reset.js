@@ -12,6 +12,7 @@ import { Formik } from 'formik';
 import axios from 'axios';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useParams, useHistory } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner'
 
 const schema = yup.object().shape({
     password: yup.string().required('Password is required')
@@ -48,10 +49,17 @@ const onSubmit = data => {
 
 const [passwordShown, setPasswordShown] = useState(false);
 const [iconShow, iconClick] = useState(false);
+const [passwordConfirmShown, setPasswordConfirmShown] = useState(false);
+const [iconConfirmShow, iconConfirmClick] = useState(false);
 const togglePasswordVisiblity = () => {
     iconClick(iconShow ? false : true)
     setPasswordShown(passwordShown ? false : true);
 };
+const togglePasswordConfirmVisiblity = () => {
+    iconConfirmClick(iconConfirmShow ? false : true)
+    setPasswordConfirmShown(passwordConfirmShown ? false : true);
+};
+
   return (
     <Formik
         validationSchema={schema}
@@ -63,6 +71,7 @@ const togglePasswordVisiblity = () => {
         }}
     >
         {({
+        isSubmitting,
         handleSubmit,
         handleChange,
         handleBlur,
@@ -104,7 +113,7 @@ const togglePasswordVisiblity = () => {
                         <Form.Label><i className="fa fa-solid fa-gear"/> Confirm Password :</Form.Label>
                         <InputGroup className="mb-3">
                             <Form.Control 
-                                type={passwordShown ? "text" : "password"}
+                                type={passwordConfirmShown ? "text" : "password"}
                                 placeholder="Confirm Password"
                                 aria-describedby="inputGroupPrepend"
                                 name="password_confirm"
@@ -113,7 +122,7 @@ const togglePasswordVisiblity = () => {
                                 isInvalid={!!errors.password_confirm}
                             />
                             <InputGroup.Text>
-                            <i onClick={togglePasswordVisiblity} className={iconShow ? 'fa fa-solid fa-eye' : 'fa fa-solid fa-eye-slash'}></i>
+                            <i onClick={togglePasswordConfirmVisiblity} className={iconConfirmShow ? 'fa fa-solid fa-eye' : 'fa fa-solid fa-eye-slash'}></i>
                             </InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
                                 {errors.password_confirm}
@@ -121,7 +130,21 @@ const togglePasswordVisiblity = () => {
                         </InputGroup>
                     </Form.Group>
                     <div className="d-grid gap-2">
+                        {isSubmitting && (
+                        <Button variant="primary" disabled>
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                            Submitting...
+                        </Button>
+                        )}
+                        {!isSubmitting && (
                         <Button type="submit" className="">Submit</Button>
+                        )} 
                     </div>
                 </Card.Body>
             </Card>

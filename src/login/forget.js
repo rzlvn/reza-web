@@ -12,7 +12,7 @@ import { Formik } from 'formik';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert'
 import { useHistory } from "react-router-dom";
-
+import Spinner from 'react-bootstrap/Spinner'
 
 const schema = yup.object().shape({
   email: yup.string().email('invalid email').required(),
@@ -24,8 +24,8 @@ export default function Forget() {
     const [showSuc, setShowSuc] = useState(false);
     const [isError, setError] = useState('');
     const [isSuccess, setSuccess] = useState('');
-    const onSubmit = data => {
-        axios.post(process.env.REACT_APP_API_LINK_CUSTOM + 'forgot',data).then(
+    const onSubmit = async data => {
+        await axios.post(process.env.REACT_APP_API_LINK_CUSTOM + 'forgot',data).then(
             res => {
                 setShowSuc(true)
                 setShowErr(false)
@@ -72,6 +72,7 @@ export default function Forget() {
         }}
     >
         {({
+        isSubmitting,
         handleSubmit,
         handleChange,
         handleBlur,
@@ -105,7 +106,21 @@ export default function Forget() {
                     </Form.Control.Feedback>
                     </Form.Group>
                     <div className="d-grid gap-2">
+                        {isSubmitting && (
+                        <Button variant="primary" disabled>
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                            Submitting...
+                        </Button>
+                        )}
+                        {!isSubmitting && (
                         <Button type="submit" className="">Submit</Button>
+                        )} 
                         <Button type="submit" variant="info" style={{color:"white"}} onClick={back}>Back to Login</Button>
                     </div>
                 </Card.Body>
