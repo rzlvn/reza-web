@@ -108,7 +108,7 @@ export default function Register() {
                     <h4 style={{textAlign:"center"}}>Register</h4>
                     {error}
                     <Form.Group className="mb-3" controlId="formBasicUsernames">
-                    <Form.Label><i className="fa fa-solid fa-user"/> Username:</Form.Label>
+                    <Form.Label><i className="fa fa-solid fa-user"/> Full Name:</Form.Label>
                     <Form.Control 
                         type="text"
                         placeholder="Username"
