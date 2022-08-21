@@ -71,8 +71,8 @@ export default class Dashboard extends Component {
                           </thead>
                           <tbody>
                             {this.state.data.map((el,index) => (
-                              <tr>
-                                <td key={index}>{index + 1}</td>
+                              <tr key={index}>
+                                <td>{index + 1}</td>
                                 <td>{el.username}</td>
                                 <td>{el.email}</td>
                                 <td>{el.created_at}</td>

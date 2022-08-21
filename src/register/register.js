@@ -198,7 +198,7 @@ export default function Register() {
                         {!isSubmitting && (
                         <Button type="submit" className="">Register</Button>
                         )} 
-                        <Button type="submit" variant="info" style={{color:"white"}} onClick={back}>Back to Login</Button>
+                        <Button type="submit" variant="info" style={{color:"white",marginLeft:5}} onClick={back}>Back to Login</Button>
                         </ButtonGroup>
                     </div>
                 </Card.Body>
